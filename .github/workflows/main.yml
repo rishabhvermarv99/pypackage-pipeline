@@ -1,0 +1,36 @@
+name: CI/CD for Python Package
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      if: runner.os != 'windows'  
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.11.4 
+
+    - name: Install package
+      run: pip install sigmoidpythonlib 
+
+    - name: Bump Version
+      run: pip install bump2version patch  
+
+    - name: Build and Push Docker Image
+      run: |
+        docker build -t your-image-name .
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        docker push your-image-name
