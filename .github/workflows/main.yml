@@ -24,7 +24,7 @@ jobs:
         python-version: 3.8
 
     - name: Install package
-      run: pip install sigmoidpythonlib && pip install --upgrade pip
+      run: pip install --upgrade pip  && pip install sigmoidpythonlib
 
     - name: Install bump2version and patch
       run: pip install bump2version patch
