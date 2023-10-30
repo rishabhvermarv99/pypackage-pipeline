@@ -32,12 +32,10 @@ jobs:
         fi
 
     - name: Set up Docker
-      if: runner.os != 'windows'
+      if: runner.os == 'ubuntu-latest' # Only run on Ubuntu runner
       run: |
-        if [ "$RUNNER_OS" != "macos-latest" ] && [ "$RUNNER_OS" != "windows-latest" ]; then
-          docker --version
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        fi
+        docker --version
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Install package
       run: pip install sigmoidpythonlib
