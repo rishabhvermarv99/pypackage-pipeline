@@ -23,14 +23,6 @@ jobs:
       with:
         python-version: 3.8
 
-    - name: Install Docker
-      if: runner.os != 'windows'
-      run: |
-        if [ "$RUNNER_OS" != "macos-latest" ] && [ "$RUNNER_OS" != "windows-latest" ]; then
-          sudo apt-get update
-          sudo apt-get install -y docker.io
-        fi
-
     - name: Set up Docker
       if: runner.os == 'ubuntu-latest' # Only run on Ubuntu runner
       run: |
@@ -44,10 +36,8 @@ jobs:
       run: pip install bump2version patch
 
     - name: Build and Push Docker Image
+      if: runner.os == 'ubuntu-latest' # Only run on Ubuntu runner
       run: |
-        if [ "$RUNNER_OS" != "macos-latest" ] && [ "$RUNNER_OS" != "windows-latest" ]; then
-          source docker-venv/bin/activate
-          docker build -t pypackage-pipeline .
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker push pypackage-pipeline
-        fi
+        docker build -t pypackage-pipeline .
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        docker push pypackage-pipeline
