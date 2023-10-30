@@ -3,7 +3,7 @@ name: CI/CD for Python Package
 on:
   push:
     branches:
-      - main  
+      - main
 
 jobs:
   build:
@@ -18,32 +18,38 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up Python
-      if: runner.os != 'windows'  
+      if: runner.os != 'windows'
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
+
+    - name: Install Docker
+      if: runner.os != 'windows'
+      run: |
+        if [ "$RUNNER_OS" != "macos-latest" ] && [ "$RUNNER_OS" != "windows-latest" ]; then
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+        fi
 
     - name: Set up Docker
       if: runner.os != 'windows'
       run: |
         if [ "$RUNNER_OS" != "macos-latest" ] && [ "$RUNNER_OS" != "windows-latest" ]; then
-          # Set up Docker in a virtual environment
-          python -m venv docker-venv
-          source docker-venv/bin/activate
-          pip install docker
           docker --version
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         fi
-      
+
     - name: Install package
       run: pip install sigmoidpythonlib
 
     - name: Install bump2version and patch
-      run: pip install bump2version patch  
-  
+      run: pip install bump2version patch
+
     - name: Build and Push Docker Image
       run: |
-        source docker-venv/bin/activate
-        docker build -t pypackage-pipeline .
-        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        docker push pypackage-pipeline
+        if [ "$RUNNER_OS" != "macos-latest" ] && [ "$RUNNER_OS" != "windows-latest" ]; then
+          source docker-venv/bin/activate
+          docker build -t pypackage-pipeline .
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker push pypackage-pipeline
+        fi
