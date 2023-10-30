@@ -24,7 +24,9 @@ jobs:
         python-version: 3.8
 
     - name: Set up Docker
-      uses: docker/setup-buildx-action@v4
+      run: |
+        docker --version
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       
     - name: Install package
       run: pip install sigmoidpythonlib
