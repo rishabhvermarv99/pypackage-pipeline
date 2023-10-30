@@ -31,7 +31,13 @@ jobs:
       run: |
         docker build -t pypackage-pipeline .
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        docker push pypackage-pipeline 
+        # docker push pypackage-pipeline 
+        # docker push ${{ secrets.DOCKER_USERNAME }}/pypackage-pipeline:latest
+
+    - name: Debug Docker Push
+      run: |
+        echo "Pushing Docker image: ${{ secrets.DOCKER_USERNAME }}/pypackage-pipeline:latest"
         docker push ${{ secrets.DOCKER_USERNAME }}/pypackage-pipeline:latest
+    
    
 
