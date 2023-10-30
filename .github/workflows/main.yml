@@ -26,8 +26,11 @@ jobs:
     - name: Install package
       run: pip install sigmoidpythonlib 
 
-    - name: Bump Version
-      run: pip install bump2version patch  
+    - name: Install bump2version and patch
+      run: |
+        pip install bump2version patch
+        retries: 3
+
   
     - name: Build and Push Docker Image
       run: |
