@@ -24,8 +24,13 @@ jobs:
         python-version: 3.8
 
     - name: Set up Docker
+      if: runner.os != 'windows'
       run: |
         if [ "$RUNNER_OS" != "macos-latest" ] && [ "$RUNNER_OS" != "windows-latest" ]; then
+          # Set up Docker in a virtual environment
+          python -m venv docker-venv
+          source docker-venv/bin/activate
+          pip install docker
           docker --version
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         fi
@@ -38,6 +43,7 @@ jobs:
   
     - name: Build and Push Docker Image
       run: |
+        source docker-venv/bin/activate
         docker build -t pypackage-pipeline .
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         docker push pypackage-pipeline
