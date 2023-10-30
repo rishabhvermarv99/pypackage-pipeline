@@ -24,7 +24,6 @@ jobs:
         python-version: 3.8
 
     - name: Set up Docker
-      if: runner.os == 'ubuntu-latest' # Only run on Ubuntu runner
       run: |
         docker --version
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
@@ -36,8 +35,8 @@ jobs:
       run: pip install bump2version patch
 
     - name: Build and Push Docker Image
-      if: runner.os == 'ubuntu-latest' # Only run on Ubuntu runner
       run: |
         docker build -t pypackage-pipeline .
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         docker push pypackage-pipeline
+
