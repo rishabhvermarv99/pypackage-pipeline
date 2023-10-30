@@ -25,7 +25,7 @@ jobs:
 
     - name: Set up Docker
       run: |
-        if [ "$RUNNER_OS" != "macOS" ] && [ "$RUNNER_OS" != "Windows" ]; then
+        if [ "$RUNNER_OS" != "macos-latest" ] && [ "$RUNNER_OS" != "windows-latest" ]; then
           docker --version
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         fi
