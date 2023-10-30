@@ -35,6 +35,6 @@ jobs:
     - name: Debug Docker Push
       run: |
         echo "Pushing Docker image: ${{ secrets.DOCKER_USERNAME }}/:latest"
-        docker push ${{ secrets.DOCKER_USERNAME }}/your-image:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/pypackage-pipeline:latest
    
 
