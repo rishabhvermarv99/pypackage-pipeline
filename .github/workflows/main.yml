@@ -31,6 +31,6 @@ jobs:
 
     - name: Build and Push Docker Image
       run: |
-        sudo docker build -t pypackage-pipeline:v1 .
+        sudo docker build -t pypackage-pipeline .
         sudo docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         sudo docker push pypackage-pipeline
