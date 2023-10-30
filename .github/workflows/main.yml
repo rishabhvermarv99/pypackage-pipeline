@@ -29,6 +29,11 @@ jobs:
     - name: Bump Version
       run: pip install bump2version patch  
 
+    - name: Set up Docker
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docker.io
+  
     - name: Build and Push Docker Image
       run: |
         docker build -t pypackage-pipeline .
