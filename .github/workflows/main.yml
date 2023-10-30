@@ -25,8 +25,10 @@ jobs:
 
     - name: Set up Docker
       run: |
-        docker --version
-        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        if [ "$RUNNER_OS" != "macOS" ] && [ "$RUNNER_OS" != "Windows" ]; then
+          docker --version
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        fi
       
     - name: Install package
       run: pip install sigmoidpythonlib
