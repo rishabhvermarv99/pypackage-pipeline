@@ -29,7 +29,6 @@ jobs:
     - name: docker build
       run: docker build --build-arg GIT_SHA=${{ github.sha }} -t pypackage-pipeline:${{ github.sha }} .
 
-      
     - name: docker login
       run: docker login --username '${{secrets.DOCKER_USERNAME}}' --password '${{secrets.DOCKER_PASSWORD}}'
 
