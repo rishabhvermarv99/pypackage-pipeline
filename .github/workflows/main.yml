@@ -1,43 +1,43 @@
-name: CI/CD for Python Package
+# name: CI/CD for Python Package
 
-on:
-  push:
-    branches:
-      - main
+# on:
+#   push:
+#     branches:
+#       - main
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
+#     - name: Set up Python
+#       uses: actions/setup-python@v2
+#       with:
+#         python-version: 3.8
 
-    - name: Set up Docker
-      run: echo ${{ secrets.DOCKER_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin 
+#     - name: Set up Docker
+#       run: echo ${{ secrets.DOCKER_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin 
 
-    - name: Install package
-      run: pip install sigmoidpythonlib
+#     - name: Install package
+#       run: pip install sigmoidpythonlib
 
-    - name: Install bump2version and patch
-      run: pip install bump2version patch
+#     - name: Install bump2version and patch
+#       run: pip install bump2version patch
 
-    - name: Build and Push Docker Image
-      run: |
-        docker build -t pypackage-pipeline .
-        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        # docker push pypackage-pipeline 
-        # docker push ${{ secrets.DOCKER_USERNAME }}/pypackage-pipeline:latest
+#     - name: Build and Push Docker Image
+#       run: |
+#         docker build -t pypackage-pipeline .
+#         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+#         # docker push pypackage-pipeline 
+#         # docker push ${{ secrets.DOCKER_USERNAME }}/pypackage-pipeline:latest
 
-    - name: Debug Docker Push
-      run: |
-        echo "Pushing Docker image: ${{ secrets.DOCKER_USERNAME }}/pypackage-pipeline:latest"
-        docker push ${{ secrets.DOCKER_USERNAME }}/pypackage-pipeline:latest
+#     - name: Debug Docker Push
+#       run: |
+#         echo "Pushing Docker image: ${{ secrets.DOCKER_USERNAME }}/pypackage-pipeline:latest"
+#         docker push ${{ secrets.DOCKER_USERNAME }}/pypackage-pipeline:latest
     
    
 
