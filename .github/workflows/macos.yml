@@ -27,7 +27,7 @@ jobs:
       run: pip install bump2version patch  
 
     - name: Set up Docker
-      uses: actions/setup-docker@v2
+      uses: actions/setup-action@v2
       with:
         version: '24.0.5'  
     
