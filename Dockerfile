@@ -1,7 +1,5 @@
 FROM python:3.8
 
-FROM python:3.8-windowsservercore
-
 WORKDIR /app
 
 RUN pip install sigmoidpythonlib
