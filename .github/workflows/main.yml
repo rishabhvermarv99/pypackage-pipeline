@@ -34,7 +34,7 @@ jobs:
       run: docker login --username '${{secrets.DOCKER_USERNAME}}' --password '${{secrets.DOCKER_PASSWORD}}'
 
     - name: tag docker image
-      run: docker tag mypackage-pipeline:'${{github.sha}}' '${{secrets.DOCKER_USERNAME}}'/mypackage-pipeline:'${{github.sha}}'
+      run: docker tag pypackage-pipeline:'${{github.sha}}' '${{secrets.DOCKER_USERNAME}}'/pypackage-pipeline:'${{github.sha}}'
 
     - name: push docker image
-      run: docker push '${{secrets.DOCKER_USERNAME}}'/mypackage-pipeline:'${{github.sha}}'
+      run: docker push '${{secrets.DOCKER_USERNAME}}'/pypackage-pipeline:'${{github.sha}}'
