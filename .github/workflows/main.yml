@@ -1,0 +1,39 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2 
+
+    - name: Build and Setup Python
+      uses: MatteoH2O1999/setup-python@v2.0.3
+      with:
+        python-version: python 3.8
+
+    - name: Install package
+      run: pip install sigmoidpythonlib    
+
+    - name: Install bump2version and patch
+      run: pip install bump2version patch  
+    
+    - name: docker build
+      run: docker build -t pypackage-pipeline:${{github.sha}}' .
+      
+    - name: docker login
+      run: docker login --username '${{secrets.DOCKER_USERNAME}}' --password '${{secrets.DOCKER_PASSWORD}}'
+
+    - name: tag docker image
+      run: docker tag mypackage-pipeline:'${{github.sha}}' '${{secrets.DOCKER_USERNAME}}'/mypackage-pipeline:'${{github.sha}}'
+
+    - name: push docker image
+      run: docker push '${{secrets.DOCKER_USERNAME}}'/mypackage-pipeline:'${{github.sha}}'
