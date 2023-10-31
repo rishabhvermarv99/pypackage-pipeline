@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Python package installation for macOS
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  build:
+  run:
 
     runs-on: macOS-latest
 
