@@ -18,7 +18,7 @@ jobs:
     - name: Build and Setup Python
       uses: MatteoH2O1999/setup-python@v2.0.3
       with:
-        python-version: python 3.8
+        python-version: python 3.8.5
 
     - name: Install package
       run: pip install sigmoidpythonlib    
