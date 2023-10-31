@@ -27,7 +27,7 @@ jobs:
       run: pip install bump2version patch  
     
     - name: docker build
-      run: docker build -t pypackage-pipeline:${{github.sha}}' .
+      run: docker build -t pypackage-pipeline:$'{{github.sha}}' .
       
     - name: docker login
       run: docker login --username '${{secrets.DOCKER_USERNAME}}' --password '${{secrets.DOCKER_PASSWORD}}'
