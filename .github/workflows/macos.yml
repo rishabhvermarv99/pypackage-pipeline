@@ -33,7 +33,7 @@ jobs:
   
     
     - name: docker build
-      run: docker build --build-arg GIT_SHA=${{ github.sha }} -t pypackage-pipeline:${{ github.sha }} .
+      run: docker build --build-arg GIT_SHA=${{ github.sha }} -t pypackage-pipeline:${{ github.sha }} -f ./macOS/Dockerfile .
 
       
     - name: docker login
