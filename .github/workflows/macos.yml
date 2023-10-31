@@ -27,7 +27,7 @@ jobs:
       run: pip install bump2version patch  
 
     - name: Set up Docker
-      uses: docker/setup-action@v2.7.0
+      uses: docker/setup-remote-docker@v1
     
     - name: docker build
       run: docker build --build-arg GIT_SHA=${{ github.sha }} -t pypackage-pipeline:${{ github.sha }} .
