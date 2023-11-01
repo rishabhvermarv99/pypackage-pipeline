@@ -4,7 +4,7 @@ FROM python:3.8
 
 RUN pip install sigmoidpythonlib
 
-ARG GIT_SHA
+# ARG GIT_SHA
 
 # EXPOSE 80
 
