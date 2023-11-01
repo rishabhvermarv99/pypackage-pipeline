@@ -16,3 +16,6 @@ jobs:
 
     - name: Install package
       run: pip install sigmoidpythonlib    
+
+    - name: Run tests
+      run: python test_myfunction.py   
