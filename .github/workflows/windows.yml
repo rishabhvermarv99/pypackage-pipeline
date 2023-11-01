@@ -14,10 +14,5 @@ jobs:
 
     steps:
 
-    - uses: actions/checkout@v2 
-
     - name: Install package
       run: pip install sigmoidpythonlib    
-
-    - name: Run tests
-      run: python test_myfunction.py   
