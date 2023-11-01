@@ -6,6 +6,6 @@ RUN pip install sigmoidpythonlib
 
 ARG GIT_SHA
 
-EXPOSE 80
+# EXPOSE 80
 
 # CMD ["python"]
