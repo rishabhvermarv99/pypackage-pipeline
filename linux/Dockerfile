@@ -8,4 +8,4 @@ ARG GIT_SHA
 
 EXPOSE 80
 
-CMD ["python", "-m", "sigmoidpythonlib"]
+CMD ["python"]
