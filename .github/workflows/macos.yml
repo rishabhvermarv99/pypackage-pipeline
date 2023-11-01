@@ -1,11 +1,5 @@
 name: Python package installation for macOS
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
 jobs:
 
   run:
