@@ -1,10 +1,7 @@
 name: Python package installation for windows
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_dispatch: {}
 
 jobs:
 
