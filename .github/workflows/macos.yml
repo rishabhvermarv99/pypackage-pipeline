@@ -1,13 +1,14 @@
 name: Python package installation for macOS
 
+on:
+  workflow_dispatch: {}
+
 jobs:
 
   run:
-
     runs-on: macOS-latest
-
+    
     steps:
-
     - name: Install package
       run: pip install sigmoidpythonlib    
 
