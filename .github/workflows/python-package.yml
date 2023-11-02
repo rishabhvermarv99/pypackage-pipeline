@@ -1,0 +1,40 @@
+name: Python Package
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8  # You can specify your desired Python version.
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Test
+        run: pytest tests/  # Use your preferred testing command.
+
+      - name: Build Package
+        run: python setup.py sdist bdist_wheel
+
+      - name: Publish Package
+        uses: pypa/gh-action-pypi-publish@release-v1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
