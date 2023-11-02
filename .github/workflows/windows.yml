@@ -12,4 +12,4 @@ jobs:
     steps:
 
     - name: Install package
-      run: pip install sigmoidpythonlib    
+      run: pip install sigmoidpythonpackage    
