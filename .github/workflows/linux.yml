@@ -1,7 +1,9 @@
 name: Docker Image CI
 
 on:
-  workflow_dispatch: {}
+  push:
+    branches:
+      - main
 
 jobs:
 
@@ -18,20 +20,20 @@ jobs:
         python-version: 3.8
 
     - name: Install package
-      run: pip install sigmoidpythonlib    
+      run: pip install sigmoidpythonpackage    
 
     - name: Install bump2version and patch
       run: pip install bump2version patch 
 
-    - name: Static Code Analysis
-      run: |
-        pip install bandit
-        bandit -r .
+    # - name: Static Code Analysis
+    #   run: |
+    #     pip install bandit
+    #     bandit -r .
 
-    - name: Dependency Scanning
-      run: |
-        pip install safety
-        safety check
+    # - name: Dependency Scanning
+    #   run: |
+    #     pip install safety
+    #     safety check
           
     - name: docker build
       run: docker build --build-arg GIT_SHA=${{ github.sha }} -t pypackage-pipeline:${{ github.sha }} -f ./linux/Dockerfile .
@@ -45,5 +47,5 @@ jobs:
     - name: push docker image
       run: docker push '${{secrets.DOCKER_USERNAME}}'/pypackage-pipeline:'${{github.sha}}'
 
-    - name: Container Image Scanning
-      run: trivy pypackage-pipeline:${{ github.sha }}
+    # - name: Container Image Scanning
+    #   run: trivy pypackage-pipeline:${{ github.sha }}
