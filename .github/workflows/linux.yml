@@ -26,7 +26,9 @@ jobs:
       run: pip install sigmoidpythonpackage    
 
     - name: Install bump2version and patch
-      run: pip install bump2version patch 
+      run: |
+        pip install bump2version
+        pip install bump2version patch 
 
     - name: Static Code Analysis
       run: |
