@@ -19,7 +19,9 @@ jobs:
           python-version: 3.8  # You can specify your desired Python version.
 
       - name: Install Dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          pip install pytest  # Install pytest
 
       - name: Test
         run: pytest tests/  # Use your preferred testing command.
