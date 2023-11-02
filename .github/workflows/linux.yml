@@ -19,6 +19,9 @@ jobs:
       with:
         python-version: 3.8
 
+    - name: Update setuptools
+      run: pip install --upgrade setuptools    
+
     - name: Install package
       run: pip install sigmoidpythonpackage    
 
