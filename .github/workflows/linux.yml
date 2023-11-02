@@ -50,5 +50,12 @@ jobs:
     - name: push docker image
       run: docker push '${{secrets.DOCKER_USERNAME}}'/pypackage-pipeline:'${{github.sha}}'
 
+    - name: Install trivy
+      run: |
+        wget https://github.com/aquasecurity/trivy/releases/download/v0.19.1/trivy_0.19.1_Linux-64bit.deb -O trivy.deb
+        sudo dpkg -i trivy.deb
+      # if: runner.os == 'Linux'
+  
+
     - name: Container Image Scanning
       run: trivy pypackage-pipeline:${{ github.sha }}
