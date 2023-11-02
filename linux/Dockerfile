@@ -2,7 +2,7 @@ FROM python:3.8
 
 # WORKDIR /app
 
-RUN pip install sigmoidpythonlib
+RUN pip install sigmoidpythonpackage
 
 # ARG GIT_SHA
 
