@@ -35,3 +35,10 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
+
+      - name: Install bump2version
+        run: pip install bump2version    
+
+      - name: Bump Version
+        run: bump2version minor 
+      
