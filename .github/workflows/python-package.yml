@@ -1,7 +1,10 @@
 name: Python Package
 
 on:
-  workflow_dispatch: {}
+  push:
+    branches:
+      - feature
+
 
 jobs:
   build:
