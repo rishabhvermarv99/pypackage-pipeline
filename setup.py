@@ -2,7 +2,8 @@ from setuptools import setup, find_packages
 
 setup(
     name="sigmoidpythonpackage",
-    version="0.1",
+    version="{version}",
     packages=find_packages(),
     install_requires=["pandas"],
 )
+
