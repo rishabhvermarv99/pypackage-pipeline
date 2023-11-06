@@ -25,7 +25,14 @@ jobs:
           pip install wheel
 
       - name: Install bump2version
-        run: pip install bump2version     
+        run: pip install bump2version  
+        
+      - name: Configure Git
+        run: |
+          git config --global user.email "rishabhverma3012.rv@gmail.com"
+          git config --global user.name "rishabhverma"
+        env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
 
       - name: Bump Version
         run: |
