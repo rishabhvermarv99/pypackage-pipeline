@@ -32,14 +32,14 @@ jobs:
           git config --global user.email "rishabhverma3012.rv@gmail.com"
           git config --global user.name "rishabhvermarv99"
         env:
-         GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}  
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
 
       - name: Bump Version
         run: |
           bumpversion minor
           git push --tags
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       # - name: Test
       #   run: pytest tests/  # Use your preferred testing command.
@@ -52,7 +52,4 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}   
-
-      # - name: Bump Version
-      #   run: bump2version minor 
       
