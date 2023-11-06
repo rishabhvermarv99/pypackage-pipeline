@@ -27,52 +27,69 @@ jobs:
       - name: Install bump2version
         run: pip install bump2version
             
+      - name: Update Semantic Version
 
-      # - name: Determine Bump Type
-      #   id: determine_bump
-      #   run: |
-      #     # Use git log to get the commit messages since the last tag
-      #     LAST_TAG=$(git describe --tags --abbrev=0)
-      #     COMMITS=$(git log $LAST_TAG..HEAD --oneline)
+        run: |
 
-      #     # Determine the bump type based on commit messages
-      #     if echo "$COMMITS" | grep -E "BREAKING CHANGE|major:"; then
-      #       echo "major"
-      #     elif echo "$COMMITS" | grep "minor:"; then
-      #       echo "minor"
-      #     else
-      #       echo "patch"
-      #     fi
-      #   shell: bash
+          commit_message="${{ github.event.head_commit.message }}"
+
+          
+
+          if [[ $commit_message == "PATCH" ]]; then
+
+              version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
+
+              major_version=$(echo "$version" | cut -d. -f1)
+
+              minor_version=$(echo "$version" | cut -d. -f2)
+
+              patch_version=$(echo "$version" | cut -d. -f3)
+
+              ((patch_version++))
+
+              new_version="${major_version}.${minor_version}.${patch_version}"            
+
+              echo "Updated version: $new_version"
+
+          elif [[ $commit_message == "MINOR" ]]; then
+
+              version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
+
+              major_version=$(echo "$version" | cut -d. -f1)
+
+              minor_version=$(echo "$version" | cut -d. -f2)
+
+              ((minor_version++))
+
+              new_version="${major_version}.${minor_version}.0"              
+
+              echo "Updated version: $new_version"
+
+          elif [[ $commit_message == "MAJOR" ]]; then
+
+              version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
+
+              major_version=$(echo "$version" | cut -d. -f1)
+
+              a=$(expr $major_version + 1)
+
+              new_version="${a}.0.0"              
+
+              echo "Updated version: $new_version"
+
+          fi
+          ls
 
       # - name: Bump Version
       #   run: |
-      #     BUMP_TYPE=$(echo "${{ steps.determine_bump.outputs.result }}")
-      #     bump2version "$BUMP_TYPE"
-      #     git push --tags
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    
+      #     bump2version --files setup.py, .bumpversion.cfg --commit --tag
 
-      # - name: Github Bumpversion Action
-      #   uses: jaumann/github-bumpversion-action@v0.0.6  
+      # - name: Build Package
+      #   run: python setup.py sdist bdist_wheel
+
+      # - name: Publish package
+      #   uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
       #   with:
-      #     files: setup.py, .bumpversion.cfg
-      #     part: minor 
-      #     commit_name: rishabhvermarv99
-      #     commit_email: rishabhverma3012.rv@gmail.com
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Bump Version
-        run: |
-          bump2version --files setup.py, .bumpversion.cfg --commit --tag
-
-      - name: Build Package
-        run: python setup.py sdist bdist_wheel
-
-      - name: Publish package
-        uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
-        with:
-          user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}   
+      #     user: __token__
+      #     password: ${{ secrets.PYPI_API_TOKEN }}   
       
