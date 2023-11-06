@@ -24,14 +24,20 @@ jobs:
           pip install -r requirements.txt
           pip install wheel 
 
-      - name: Github Bumpversion Action
-        uses: jaumann/github-bumpversion-action@v0.0.6  
-        with:
-          files: setup.py, .bumpversion.cfg
-          part: minor 
-          commit_name: rishabhvermarv99
-          commit_email: rishabhverma3012.rv@gmail.com
-          token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Github Bumpversion Action
+      #   uses: jaumann/github-bumpversion-action@v0.0.6  
+      #   with:
+      #     files: setup.py, .bumpversion.cfg
+      #     part: minor 
+      #     commit_name: rishabhvermarv99
+      #     commit_email: rishabhverma3012.rv@gmail.com
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Bump Version
+        run: bump2version minor  
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
       - name: Build Package
         run: python setup.py sdist bdist_wheel
