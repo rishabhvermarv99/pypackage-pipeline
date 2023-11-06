@@ -24,6 +24,9 @@ jobs:
           pip install -r requirements.txt
           pip install wheel
 
+      - name: Install bump2version
+        run: pip install bump2version     
+
       - name: Bump Version
         run: |
           bumpversion minor
@@ -41,10 +44,7 @@ jobs:
         uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
         with:
           user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
-
-      # - name: Install bump2version
-      #   run: pip install bump2version    
+          password: ${{ secrets.PYPI_API_TOKEN }}   
 
       # - name: Bump Version
       #   run: bump2version minor 
