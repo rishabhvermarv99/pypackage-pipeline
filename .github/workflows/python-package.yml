@@ -26,7 +26,7 @@ jobs:
 
       - name: Bump Version
         run: |
-          bumpversion patch  # or bumpversion minor/major, etc.
+          bumpversion minor
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             
