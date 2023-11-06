@@ -39,6 +39,6 @@ jobs:
       - name: Install bump2version
         run: pip install bump2version    
 
-      - name: Bump Version
-        run: bump2version minor 
+      # - name: Bump Version
+      #   run: bump2version minor 
       
