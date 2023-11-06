@@ -30,7 +30,7 @@ jobs:
       - name: Configure Git
         run: |
           git config --global user.email "rishabhverma3012.rv@gmail.com"
-          git config --global user.name "rishabhverma"
+          git config --global user.name "rishabhvermarv99"
         env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
 
