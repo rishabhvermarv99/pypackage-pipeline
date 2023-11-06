@@ -3,7 +3,7 @@ name: Python Package
 on:
   push:
     branches:
-      - feature
+      - feature   
 
 
 jobs:
@@ -17,29 +17,45 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8  # You can specify your desired Python version.
+          python-version: 3.8  
 
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt
-          pip install wheel
+          pip install wheel 
 
-      - name: Install bump2version
-        run: pip install bump2version  
+
+      - name: bump2version-action
+         
+        uses: FragileTech/bump-version@v1.0.4
+        with:
+          # Version of the project *before* the bump.
+           current_version: 0.3.0  #
+           files: .bumpversion.cfg setup.py 
+           commit_name: rishabhvermarv99
+           commit_email: rishabhverma3012.rv@gmail.com 
+           token: ${{ secrets.GITHUB_TOKEN }} 
+           part: minor 
+    
+
+
+
+      # - name: Install bump2version
+      #   run: pip install bump2version  
         
-      - name: Configure Git
-        run: |
-          git config --global user.email "rishabhverma3012.rv@gmail.com"
-          git config --global user.name "rishabhvermarv99"
-        env:
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+      # - name: Configure Git
+      #   run: |
+      #     git config --global user.email "rishabhverma3012.rv@gmail.com"
+      #     git config --global user.name "rishabhvermarv99"
+      #   env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
 
-      - name: Bump Version
-        run: |
-          bump2version minor
-          git push --tags
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Bump Version
+      #   run: |
+      #     bump2version minor
+      #     git push --tags
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       # - name: Test
       #   run: pytest tests/  # Use your preferred testing command.
