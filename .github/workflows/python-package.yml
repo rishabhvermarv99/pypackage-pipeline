@@ -84,8 +84,6 @@ jobs:
               echo "Updated version: $new_version"
 
           fi
-        
-
 
       - name: Bump Version
         run: |
