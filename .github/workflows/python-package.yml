@@ -36,7 +36,7 @@ jobs:
 
       - name: Bump Version
         run: |
-          bumpversion minor
+          bump2version minor
           git push --tags
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
