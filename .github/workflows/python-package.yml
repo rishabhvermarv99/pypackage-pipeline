@@ -24,6 +24,32 @@ jobs:
           pip install -r requirements.txt
           pip install wheel 
 
+      - name: Determine Bump Type
+        id: determine_bump
+        run: |
+          # Use git log to get the commit messages since the last tag
+          LAST_TAG=$(git describe --tags --abbrev=0)
+          COMMITS=$(git log $LAST_TAG..HEAD --oneline)
+
+          # Determine the bump type based on commit messages
+          if echo "$COMMITS" | grep -E "BREAKING CHANGE|major:"; then
+            echo "major"
+          elif echo "$COMMITS" | grep "minor:"; then
+            echo "minor"
+          else
+            echo "patch"
+          fi
+        shell: bash
+
+      - name: Bump Version
+        run: |
+          BUMP_TYPE=$(echo "${{ steps.determine_bump.outputs.result }}")
+          bump2version "$BUMP_TYPE"
+          git push --tags
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+
       # - name: Github Bumpversion Action
       #   uses: jaumann/github-bumpversion-action@v0.0.6  
       #   with:
@@ -33,10 +59,6 @@ jobs:
       #     commit_email: rishabhverma3012.rv@gmail.com
       #     token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Bump Version
-        run: bump2version minor  
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
       - name: Build Package
