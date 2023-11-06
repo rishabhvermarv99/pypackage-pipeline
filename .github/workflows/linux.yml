@@ -1,12 +1,10 @@
 name: CI/CD for Python Package
 
-# on:
-#   push:
-#     branches:
-#       - main
-#       - develop
 on:
-  workflow_dispatch: {}
+  push:
+    branches:
+      - main
+      - develop
 
 jobs:
 
