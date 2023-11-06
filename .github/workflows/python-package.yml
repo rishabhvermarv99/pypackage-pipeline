@@ -47,7 +47,9 @@ jobs:
 
               ((patch_version++))
 
-              new_version="${major_version}.${minor_version}.${patch_version}"            
+              new_version="${major_version}.${minor_version}.${patch_version}"    
+
+              echo "$new_version" > VERSION.txt
 
               echo "Updated version: $new_version"
 
@@ -61,7 +63,9 @@ jobs:
 
               ((minor_version++))
 
-              new_version="${major_version}.${minor_version}.0"              
+              new_version="${major_version}.${minor_version}.0"   
+
+              echo "$new_version" > VERSION.txt
 
               echo "Updated version: $new_version"
 
@@ -73,12 +77,17 @@ jobs:
 
               a=$(expr $major_version + 1)
 
-              new_version="${a}.0.0"              
+              new_version="${a}.0.0"      
+
+              echo "$new_version" > VERSION.txt
 
               echo "Updated version: $new_version"
 
           fi
-          ls
+          ls 
+          echo ==
+          cat VERSION.txt
+
 
       # - name: Bump Version
       #   run: |
