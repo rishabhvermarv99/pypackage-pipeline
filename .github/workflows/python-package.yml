@@ -32,7 +32,8 @@ jobs:
           bumpversion minor
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            
+      
+          
 
       # - name: Test
       #   run: pytest tests/  # Use your preferred testing command.
