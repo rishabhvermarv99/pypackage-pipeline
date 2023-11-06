@@ -23,20 +23,22 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install wheel 
+
                   
 
-      - name: bump2version-action
+      # - name: bump2version-action
          
-        uses: FragileTech/bump-version@v1.0.4
-        with:
-          # Version of the project *before* the bump.
-           current_version: 0.3.0  #
-           files: .bumpversion.cfg setup.py 
-           commit_name: rishabhvermarv99
-           commit_email: rishabhverma3012.rv@gmail.com 
-           token: ${{ secrets.GITHUB_TOKEN }} 
-           part: minor 
-    
+      #   uses: FragileTech/bump-version@v1.0.4
+      #   with:
+      #     # Version of the project *before* the bump.
+      #      current_version: 0.3.0  #
+      #      files: .bumpversion.cfg setup.py 
+      #      commit_name: rishabhvermarv99
+      #      commit_email: rishabhverma3012.rv@gmail.com 
+      #      token: ${{ secrets.GITHUB_TOKEN }} 
+      #      part: minor 
+      - name: Github Bumpversion Action
+        uses: jaumann/github-bumpversion-action@v0.0.6
 
 
 
