@@ -24,6 +24,13 @@ jobs:
           pip install -r requirements.txt
           pip install wheel
 
+      - name: Bump Version
+        run: |
+          bumpversion patch  # or bumpversion minor/major, etc.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            
+
       # - name: Test
       #   run: pytest tests/  # Use your preferred testing command.
 
@@ -36,8 +43,8 @@ jobs:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
 
-      - name: Install bump2version
-        run: pip install bump2version    
+      # - name: Install bump2version
+      #   run: pip install bump2version    
 
       # - name: Bump Version
       #   run: bump2version minor 
