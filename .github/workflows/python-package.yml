@@ -45,7 +45,7 @@ jobs:
         uses: FragileTech/bump-version@v1.0.4
         with:
           # Version of the project *before* the bump.
-          current_version: ${{ file:VERSION.txt }}
+          current_version: ${{ file: VERSION.txt }}
           # List of files in which to bump the version. The format is a concatenation of paths separated by a whitespace character.
           files: "setup.py .bumpversion.cfg VERSION.txt"
           # Name of the identity that is used in the commit's author signature.
