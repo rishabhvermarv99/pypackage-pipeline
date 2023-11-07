@@ -91,7 +91,14 @@ jobs:
       - name: Bump Version
         run: |
           git fetch --tags
-          bump2version --no-tag --no-commit patch  # Default to patch bump if not specified in commit message
+          commit_message="${{ github.event.head_commit.message }}"
+          if [[ $commit_message =~ major:.* ]]; then
+            bump2version --no-tag --no-commit major
+          elif [[ $commit_message =~ minor:.* ]]; then
+            bump2version --no-tag --no-commit minor
+          else
+            bump2version --no-tag --no-commit patch
+          fi
           version=$(cat VERSION.txt)
           echo "Updated version to $version"
         shell: bash
