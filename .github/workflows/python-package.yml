@@ -25,6 +25,37 @@ jobs:
 
       # - name: Install bump2version
       #   run: pip install --upgrade bump2version
+
+      - name: Determine Version Bump
+        id: version_bump
+        run: |
+          commit_message="${{ github.event.head_commit.message }}"
+          if [[ $commit_message == *"major:"* ]]; then
+            new_version="major"
+          elif [[ $commit_message == *"minor:"* ]]; then
+            new_version="minor"
+          else
+            new_version="patch"
+          fi
+          echo "$new_version" > env.txt
+
+      - name: bump2version-action
+        # You may pin to the exact commit or the version.
+        # uses: FragileTech/bump-version@c022e89bf1b6c4753bd39bc1f9c979da7fabe2f8
+        uses: FragileTech/bump-version@v1.0.4
+        with:
+          # Version of the project *before* the bump.
+          current_version: ${{ file:VERSION.txt }}
+          # List of files in which to bump the version. The format is a concatenation of paths separated by a whitespace character.
+          files: "setup.py .bumpversion.cfg VERSION.txt"
+          # Name of the identity that is used in the commit's author signature.
+          commit_name: rishabhvermarv99
+          # Email of the identity that is used in the commit's author signature.
+          commit_email: rishabhverma3012.rv@gmail.com
+          # GitHub user name of the identity. `bump-version` uses it together with `token` to push to the repository.
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Part of the semantic version to bump.
+          part: ${{ env.txt }}
             
       # - name: Update Semantic Version
 
@@ -156,26 +187,13 @@ jobs:
       #     echo "Updated version to $version"
       #   shell: bash
 
-      - name: Determine Version Bump
-        id: version_bump
-        run: |
-          commit_message="${{ github.event.head_commit.message }}"
-          if [[ $commit_message == *"major:"* ]]; then
-            new_version="major"
-          elif [[ $commit_message == *"minor:"* ]]; then
-            new_version="minor"
-          else
-            new_version="patch"
-          fi
-          echo "$new_version" > env.txt
-
-      - name: Bump Version
-        run: |
-          git fetch --tags
-          bump2version --no-tag --no-commit ${{ env.txt }}  # Use patch, minor, or major based on your commit message
-          version=$(cat VERSION.txt)
-          echo "Updated version to $version"
-        shell: bash    
+      # - name: Bump Version
+      #   run: |
+      #     git fetch --tags
+      #     bump2version --no-tag --no-commit ${{ env.txt }}  # Use patch, minor, or major based on your commit message
+      #     version=$(cat VERSION.txt)
+      #     echo "Updated version to $version"
+      #   shell: bash    
 
 
 
