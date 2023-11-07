@@ -103,6 +103,19 @@ jobs:
       #     echo "Updated version to $version"
       #   shell: bash
 
+      # - name: Determine Version Bump
+      #   run: |
+      #     commit_message="${{ github.event.head_commit.message }}"
+      #     if [[ $commit_message == *"major:"* ]]; then
+      #       new_version="major"
+      #     elif [[ $commit_message == *"minor:"* ]]; then
+      #       new_version="minor"
+      #     else
+      #       new_version="patch"
+      #     fi
+      #     echo "::set-output name=new_version::$new_version"
+      #   id: version_bump
+
       - name: Determine Version Bump
         run: |
           commit_message="${{ github.event.head_commit.message }}"
@@ -113,17 +126,28 @@ jobs:
           else
             new_version="patch"
           fi
-          echo "::set-output name=new_version::$new_version"
-        id: version_bump
+          echo "$new_version" > env.txt
+        shell: bash
+    
+
+      # - name: Bump Version
+      #   run: |
+      #     git fetch --tags
+      #     new_version="${{ steps.version_bump.outputs.new_version }}"
+      #     bump2version --no-tag --no-commit $new_version
+      #     version=$(cat VERSION.txt)
+      #     echo "Updated version to $version"
+      #   shell: bash
 
       - name: Bump Version
         run: |
           git fetch --tags
-          new_version="${{ steps.version_bump.outputs.new_version }}"
+          new_version=$(cat env.txt)
           bump2version --no-tag --no-commit $new_version
           version=$(cat VERSION.txt)
           echo "Updated version to $version"
         shell: bash
+
 
       - name: Build Package
         run: python setup.py sdist bdist_wheel
