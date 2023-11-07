@@ -21,10 +21,7 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt
-          pip install wheel 
-
-      - name: Add Git Remote
-        run: git remote add origin https://github.com/rishabhvermarv99/pypackage-pipeline    
+          pip install wheel             
 
       # - name: Install bump2version
       #   run: pip install --upgrade bump2version
