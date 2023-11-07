@@ -23,6 +23,11 @@ jobs:
           pip install -r requirements.txt
           pip install wheel 
 
+      - name: Setup Git Remote
+        run: git remote add origin https://github.com/rishabhvermarv99/pypackage-pipeline
+        if: success()
+            
+
       # - name: Install bump2version
       #   run: pip install --upgrade bump2version
 
