@@ -116,20 +116,6 @@ jobs:
       #     echo "::set-output name=new_version::$new_version"
       #   id: version_bump
 
-
-      - name: Determine Version Bump
-        id: version_bump
-        run: |
-          commit_message="${{ github.event.head_commit.message }}"
-          if [[ $commit_message == *"major:"* ]]; then
-            new_version="major"
-          elif [[ $commit_message == *"minor:"* ]]; then
-            new_version="minor"
-          else
-            new_version="patch"
-          fi
-          echo "$new_version" > env.txt
-
       # - name: Determine Version Bump
       #   run: |
       #     commit_message="${{ github.event.head_commit.message }}"
@@ -177,6 +163,36 @@ jobs:
       #     version=$(cat VERSION.txt)
       #     echo "Updated version to $version"
       #   shell: bash
+
+      # - name: Determine Version Bump
+      #   id: version_bump
+      #   run: |
+      #     commit_message="${{ github.event.head_commit.message }}"
+      #     if [[ $commit_message == *"major:"* ]]; then
+      #       new_version="major"
+      #     elif [[ $commit_message == *"minor:"* ]]; then
+      #       new_version="minor"
+      #     else
+      #       new_version="patch"
+      #     fi
+      #     echo "$new_version" > env.txt
+
+      - name: Create bumpversion.cfg
+        run: |
+          echo "[bumpversion]
+          current_version = file: VERSION.txt
+          commit = True
+          tag = True
+          message = Bump version: {current_version} → {new_version}" > .bumpversion.cfg
+
+      - name: Bump Version
+        run: bump2version --no-tag --no-commit
+
+      - name: Tag Version
+        run: git tag ${{ steps.bump2version.outputs.new_version }}
+
+      - name: Push Tag
+        run: git push --tags
 
 
       - name: Build Package
