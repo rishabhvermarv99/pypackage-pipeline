@@ -84,9 +84,9 @@ jobs:
 
       #     fi
 
-      # - name: Bump Version
-      #   run: |
-      #     bump2version --files setup.py, .bumpversion.cfg --commit --tag
+      - name: Bump Version
+        run: |
+          bump2version --files setup.py, .bumpversion.cfg --commit --tag
 
       - name: Bump Version
         run: |
