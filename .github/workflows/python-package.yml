@@ -21,12 +21,7 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt
-          pip install wheel 
-
-      - name: Setup Git Remote
-        run: git remote add origin https://github.com/rishabhvermarv99/pypackage-pipeline
-        if: success()
-            
+          pip install wheel             
 
       # - name: Install bump2version
       #   run: pip install --upgrade bump2version
@@ -64,7 +59,7 @@ jobs:
           # GitHub user name of the identity. `bump-version` uses it together with `token` to push to the repository.
           token: ${{ secrets.GITHUB_TOKEN }}
           # Part of the semantic version to bump.
-          part: ${{ env.txt }}
+          part: ${{ steps.version_bump.outputs.new_version }}
             
       # - name: Update Semantic Version
 
