@@ -26,6 +26,10 @@ jobs:
       # - name: Install bump2version
       #   run: pip install --upgrade bump2version
 
+      - name: Read VERSION.txt
+        id: read_version
+        run: echo "VERSION=$(cat VERSION.txt)" >> $GITHUB_ENV
+
       - name: Determine Version Bump
         id: version_bump
         run: |
@@ -45,7 +49,7 @@ jobs:
         uses: FragileTech/bump-version@v1.0.4
         with:
           # Version of the project *before* the bump.
-          current_version: ${{ VERSION.txt }}
+          current_version: ${{ env.VERSION }}
           # List of files in which to bump the version. The format is a concatenation of paths separated by a whitespace character.
           files: "setup.py .bumpversion.cfg VERSION.txt"
           # Name of the identity that is used in the commit's author signature.
