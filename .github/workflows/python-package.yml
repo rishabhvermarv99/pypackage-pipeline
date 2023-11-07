@@ -88,6 +88,14 @@ jobs:
       #   run: |
       #     bump2version --files setup.py, .bumpversion.cfg --commit --tag
 
+      - name: Bump Version
+        run: |
+          git fetch --tags
+          bump2version --no-tag --no-commit minor  # Default to minor bump if not specified in commit message
+          version=$(cat VERSION.txt)
+          echo "Updated version to $version"
+        shell: bash
+
       - name: Build Package
         run: python setup.py sdist bdist_wheel
 
