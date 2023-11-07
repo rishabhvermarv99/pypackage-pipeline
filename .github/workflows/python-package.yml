@@ -24,7 +24,7 @@ jobs:
           pip install wheel 
 
       - name: Install bump2version
-        run: pip install bump2version
+        run: pip install --upgrade bump2version
             
       # - name: Update Semantic Version
 
