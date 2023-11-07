@@ -23,70 +23,70 @@ jobs:
           pip install -r requirements.txt
           pip install wheel 
 
-      - name: Install bump2version
-        run: pip install bump2version
+      # - name: Install bump2version
+      #   run: pip install bump2version
             
-      - name: Update Semantic Version
+      # - name: Update Semantic Version
 
-        run: |
+      #   run: |
 
-          commit_message="${{ github.event.head_commit.message }}"
+      #     commit_message="${{ github.event.head_commit.message }}"
 
           
 
-          if [[ $commit_message == *"PATCH"* ]]; then
+      #     if [[ $commit_message == *"PATCH"* ]]; then
 
-              version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
+      #         version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
 
-              major_version=$(echo "$version" | cut -d. -f1)
+      #         major_version=$(echo "$version" | cut -d. -f1)
 
-              minor_version=$(echo "$version" | cut -d. -f2)
+      #         minor_version=$(echo "$version" | cut -d. -f2)
 
-              patch_version=$(echo "$version" | cut -d. -f3)
+      #         patch_version=$(echo "$version" | cut -d. -f3)
 
-              ((patch_version++))
+      #         ((patch_version++))
 
-              new_version="${major_version}.${minor_version}.${patch_version}"    
+      #         new_version="${major_version}.${minor_version}.${patch_version}"    
 
-              echo "$new_version" > VERSION.txt
+      #         echo "$new_version" > VERSION.txt
 
-              echo "Updated version: $new_version"
+      #         echo "Updated version: $new_version"
 
-          elif [[ $commit_message == *"MINOR"* ]]; then
+      #     elif [[ $commit_message == *"MINOR"* ]]; then
 
-              version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
+      #         version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
 
-              major_version=$(echo "$version" | cut -d. -f1)
+      #         major_version=$(echo "$version" | cut -d. -f1)
 
-              minor_version=$(echo "$version" | cut -d. -f2)
+      #         minor_version=$(echo "$version" | cut -d. -f2)
 
-              ((minor_version++))
+      #         ((minor_version++))
 
-              new_version="${major_version}.${minor_version}.0"   
+      #         new_version="${major_version}.${minor_version}.0"   
 
-              echo "$new_version" > VERSION.txt
+      #         echo "$new_version" > VERSION.txt
 
-              echo "Updated version: $new_version"
+      #         echo "Updated version: $new_version"
 
-          elif [[ $commit_message == *"MAJOR"* ]]; then
+      #     elif [[ $commit_message == *"MAJOR"* ]]; then
 
-              version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
+      #         version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
 
-              major_version=$(echo "$version" | cut -d. -f1)
+      #         major_version=$(echo "$version" | cut -d. -f1)
 
-              a=$(expr $major_version + 1)
+      #         a=$(expr $major_version + 1)
 
-              new_version="${a}.0.0"      
+      #         new_version="${a}.0.0"      
 
-              echo "$new_version" > VERSION.txt
+      #         echo "$new_version" > VERSION.txt
 
-              echo "Updated version: $new_version"
+      #         echo "Updated version: $new_version"
 
-          fi
+      #     fi
 
-      - name: Bump Version
-        run: |
-          bump2version --files setup.py, .bumpversion.cfg --commit --tag
+      # - name: Bump Version
+      #   run: |
+      #     bump2version --files setup.py, .bumpversion.cfg --commit --tag
 
       - name: Build Package
         run: python setup.py sdist bdist_wheel
