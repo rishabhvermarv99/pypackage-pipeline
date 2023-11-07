@@ -23,8 +23,8 @@ jobs:
           pip install -r requirements.txt
           pip install wheel 
 
-      # - name: Install bump2version
-      #   run: pip install bump2version
+      - name: Install bump2version
+        run: pip install bump2version
             
       # - name: Update Semantic Version
 
