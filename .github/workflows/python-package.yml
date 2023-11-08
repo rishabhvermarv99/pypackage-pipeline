@@ -103,6 +103,8 @@ jobs:
 
           echo "Updated version: $new_version"
 
+          cat VERSION.txt
+
       # - name: Bump Version
       #   run: |
       #     git config --local user.email "rishabhverma3012.rv@gmail.com"
