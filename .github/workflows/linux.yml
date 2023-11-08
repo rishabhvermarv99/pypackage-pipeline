@@ -29,7 +29,6 @@ jobs:
     - name: Install bump2version
       run: pip install bump2version
         
-
     - name: Static Code Analysis
       run: |
         pip install bandit
@@ -55,9 +54,7 @@ jobs:
     - name: Install trivy
       run: |
         wget https://github.com/aquasecurity/trivy/releases/download/v0.19.1/trivy_0.19.1_Linux-64bit.deb -O trivy.deb
-        sudo dpkg -i trivy.deb
-      # if: runner.os == 'Linux'
-  
+        sudo dpkg -i trivy.deb  
 
     - name: Container Image Scanning
       run: trivy pypackage-pipeline:${{ github.sha }}
