@@ -1,4 +1,4 @@
-name: CI/CD for Python Package
+name: CI for Python Package and deployment to Docker Hub
 
 on:
   push:
