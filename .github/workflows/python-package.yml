@@ -21,17 +21,14 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt
-          pip install wheel   
-          
-      # - name: Install bump2version
-      #   run: pip install bump2version     
+          pip install wheel      
      
       - name: Semantic Versioning
 
         run: |
 
           commit_message="${{ github.event.head_commit.message }}"
-          
+
           commit_message_lowercase=$(echo "$commit_message" | tr 'A-Z' 'a-z')
           
 
@@ -49,10 +46,6 @@ jobs:
 
               new_version="${major_version}.${minor_version}.${patch_version}"    
 
-              # echo "$new_version" > VERSION.txt
-
-              # echo "Updated version: $new_version"
-
           elif [[ $commit_message == *"MINOR"* ]]; then
 
               version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
@@ -65,10 +58,6 @@ jobs:
 
               new_version="${major_version}.${minor_version}.0"   
 
-              # echo "$new_version" > VERSION.txt
-
-              # echo "Updated version: $new_version"
-
           elif [[ $commit_message == *"MAJOR"* ]]; then
 
               version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
@@ -78,10 +67,6 @@ jobs:
               a=$(expr $major_version + 1)
 
               new_version="${a}.0.0"      
-
-              # echo "$new_version" > VERSION.txt
-
-              # echo "Updated version: $new_version"
 
           else
 
@@ -105,19 +90,6 @@ jobs:
 
           cat VERSION.txt
 
-      # - name: Bump Version
-      #   run: |
-      #     git config --local user.email "rishabhverma3012.rv@gmail.com"
-      #     git config --local user.name "rishabhvermarv99"
-      #     git fetch --tags
-      #     current_version=$(cat VERSION.txt)
-      #     bump2version --no-tag --no-commit --new-version $current_version  # Bump to the current version
-      #     new_version=$(bump2version --dry-run --list patch | grep current_version | cut -d'=' -f2)
-      #     echo "$new_version" > VERSION.txt
-      #     echo "Updated version in VERSION.txt to $new_version"
-      #   shell: bash    
-
-
       - name: Build Package
         run: python setup.py sdist bdist_wheel
 
@@ -126,4 +98,3 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}   
-      
