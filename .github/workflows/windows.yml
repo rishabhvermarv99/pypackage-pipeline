@@ -6,12 +6,9 @@ on:
     - develop
 
 jobs:
-
   run:
-
     runs-on: windows-latest
 
     steps:
-
     - name: Install package
       run: pip install sigmoidpythonpackage    

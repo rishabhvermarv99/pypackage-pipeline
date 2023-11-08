@@ -3,10 +3,9 @@ name: Python package installation for macOS
 on:
   push:
     branches:
-    - develop
+      - develop
 
 jobs:
-
   run:
     runs-on: macOS-latest
     

@@ -5,10 +5,10 @@ on:
     branches:
       - feature   
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -24,7 +24,6 @@ jobs:
           pip install wheel      
      
       - name: Semantic Versioning
-
         run: |
 
           commit_message="${{ github.event.head_commit.message }}"
