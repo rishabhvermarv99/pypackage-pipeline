@@ -26,102 +26,104 @@ jobs:
       # - name: Install bump2version
       #   run: pip install --upgrade bump2version
 
-      - name: Read VERSION.txt
-        id: read_version
-        run: echo "VERSION=$(cat VERSION.txt)" >> $GITHUB_ENV
+      # - name: Read VERSION.txt
+      #   id: read_version
+      #   run: echo "VERSION=$(cat VERSION.txt)" >> $GITHUB_ENV
 
-      - name: Determine Version Bump
-        id: version_bump
-        run: |
-          commit_message="${{ github.event.head_commit.message }}"
-          if [[ $commit_message == *"major:"* ]]; then
-            new_version="major"
-          elif [[ $commit_message == *"minor:"* ]]; then
-            new_version="minor"
-          else
-            new_version="patch"
-          fi
-          echo "$new_version" > env.txt
-
-      - name: bump2version-action
-        # You may pin to the exact commit or the version.
-        # uses: FragileTech/bump-version@c022e89bf1b6c4753bd39bc1f9c979da7fabe2f8
-        uses: FragileTech/bump-version@v1.0.4
-        with:
-          # Version of the project *before* the bump.
-          current_version: ${{ env.VERSION }}
-          # List of files in which to bump the version. The format is a concatenation of paths separated by a whitespace character.
-          files: "setup.py .bumpversion.cfg VERSION.txt"
-          # Name of the identity that is used in the commit's author signature.
-          commit_name: rishabhvermarv99
-          # Email of the identity that is used in the commit's author signature.
-          commit_email: rishabhverma3012.rv@gmail.com
-          # GitHub user name of the identity. `bump-version` uses it together with `token` to push to the repository.
-          token: ${{ secrets.GITHUB_TOKEN }}
-          # Part of the semantic version to bump.
-          part: ${{ steps.version_bump.outputs.new_version }}
-            
-      # - name: Update Semantic Version
-
+      # - name: Determine Version Bump
+      #   id: version_bump
       #   run: |
-
       #     commit_message="${{ github.event.head_commit.message }}"
+      #     if [[ $commit_message == *"major:"* ]]; then
+      #       new_version="major"
+      #     elif [[ $commit_message == *"minor:"* ]]; then
+      #       new_version="minor"
+      #     else
+      #       new_version="patch"
+      #     fi
+      #     echo "$new_version" > env.txt
+
+      # - name: bump2version-action
+      #   # You may pin to the exact commit or the version.
+      #   # uses: FragileTech/bump-version@c022e89bf1b6c4753bd39bc1f9c979da7fabe2f8
+      #   uses: FragileTech/bump-version@v1.0.4
+      #   with:
+      #     # Version of the project *before* the bump.
+      #     current_version: ${{ env.VERSION }}
+      #     # List of files in which to bump the version. The format is a concatenation of paths separated by a whitespace character.
+      #     files: "setup.py .bumpversion.cfg VERSION.txt"
+      #     # Name of the identity that is used in the commit's author signature.
+      #     commit_name: rishabhvermarv99
+      #     # Email of the identity that is used in the commit's author signature.
+      #     commit_email: rishabhverma3012.rv@gmail.com
+      #     # GitHub user name of the identity. `bump-version` uses it together with `token` to push to the repository.
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      #     # Part of the semantic version to bump.
+      #     part: ${{ steps.version_bump.outputs.new_version }}
+            
+      - name: Update Semantic Version
+
+        run: |
+
+          commit_message="${{ github.event.head_commit.message }}"
 
           
 
-      #     if [[ $commit_message == *"PATCH"* ]]; then
+          if [[ $commit_message == *"PATCH"* ]]; then
 
-      #         version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
+              version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
 
-      #         major_version=$(echo "$version" | cut -d. -f1)
+              major_version=$(echo "$version" | cut -d. -f1)
 
-      #         minor_version=$(echo "$version" | cut -d. -f2)
+              minor_version=$(echo "$version" | cut -d. -f2)
 
-      #         patch_version=$(echo "$version" | cut -d. -f3)
+              patch_version=$(echo "$version" | cut -d. -f3)
 
-      #         ((patch_version++))
+              ((patch_version++))
 
-      #         new_version="${major_version}.${minor_version}.${patch_version}"    
+              new_version="${major_version}.${minor_version}.${patch_version}"    
 
-      #         echo "$new_version" > VERSION.txt
+              echo "$new_version" > VERSION.txt
 
-      #         echo "Updated version: $new_version"
+              echo "Updated version: $new_version"
 
-      #     elif [[ $commit_message == *"MINOR"* ]]; then
+          elif [[ $commit_message == *"MINOR"* ]]; then
 
-      #         version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
+              version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
 
-      #         major_version=$(echo "$version" | cut -d. -f1)
+              major_version=$(echo "$version" | cut -d. -f1)
 
-      #         minor_version=$(echo "$version" | cut -d. -f2)
+              minor_version=$(echo "$version" | cut -d. -f2)
 
-      #         ((minor_version++))
+              ((minor_version++))
 
-      #         new_version="${major_version}.${minor_version}.0"   
+              new_version="${major_version}.${minor_version}.0"   
 
-      #         echo "$new_version" > VERSION.txt
+              echo "$new_version" > VERSION.txt
 
-      #         echo "Updated version: $new_version"
+              echo "Updated version: $new_version"
 
-      #     elif [[ $commit_message == *"MAJOR"* ]]; then
+          elif [[ $commit_message == *"MAJOR"* ]]; then
 
-      #         version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
+              version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
 
-      #         major_version=$(echo "$version" | cut -d. -f1)
+              major_version=$(echo "$version" | cut -d. -f1)
 
-      #         a=$(expr $major_version + 1)
+              a=$(expr $major_version + 1)
 
-      #         new_version="${a}.0.0"      
+              new_version="${a}.0.0"      
 
-      #         echo "$new_version" > VERSION.txt
+              echo "$new_version" > VERSION.txt
 
-      #         echo "Updated version: $new_version"
+              echo "Updated version: $new_version"
 
-      #     fi
+          fi
 
       # - name: Bump Version
       #   run: |
       #     bump2version --files setup.py, .bumpversion.cfg, VERSION.txt --commit --tag
+
+      
 
       # - name: Bump Version
       #   run: |
