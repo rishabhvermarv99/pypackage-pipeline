@@ -1,7 +1,9 @@
 name: Python package installation for windows
 
 on:
-  workflow_dispatch: {}
+  push:
+    branches:
+    - develop
 
 jobs:
 

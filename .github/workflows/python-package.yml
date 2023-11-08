@@ -3,13 +3,12 @@ name: Python Package
 on:
   push:
     branches:
-      - feature
+      - feature   
 
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -17,15 +16,64 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8  # You can specify your desired Python version.
+          python-version: 3.8  
 
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt
-          pip install wheel
+          pip install wheel      
+     
+      - name: Semantic Versioning
 
-      # - name: Test
-      #   run: pytest tests/  # Use your preferred testing command.
+        run: |
+
+          commit_message="${{ github.event.head_commit.message }}"
+
+          commit_message_lowercase=$(echo "$commit_message" | tr 'A-Z' 'a-z') 
+
+          if [[ $commit_message == *"MINOR"* ]]; then
+
+              version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
+
+              major_version=$(echo "$version" | cut -d. -f1)
+
+              minor_version=$(echo "$version" | cut -d. -f2)
+
+              ((minor_version++))
+
+              new_version="${major_version}.${minor_version}.0"   
+
+          elif [[ $commit_message == *"MAJOR"* ]]; then
+
+              version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
+
+              major_version=$(echo "$version" | cut -d. -f1)
+
+              a=$(expr $major_version + 1)
+
+              new_version="${a}.0.0"      
+
+          else
+
+          version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
+
+          major_version=$(echo "$version" | cut -d. -f1)
+
+          minor_version=$(echo "$version" | cut -d. -f2)
+
+          patch_version=$(echo "$version" | cut -d. -f3)
+
+          ((patch_version++))
+
+          new_version="${major_version}.${minor_version}.${patch_version}"
+
+          fi 
+
+          echo "$new_version" > VERSION.txt
+
+          echo "Updated version: $new_version"
+
+          cat VERSION.txt
 
       - name: Build Package
         run: python setup.py sdist bdist_wheel
@@ -34,4 +82,4 @@ jobs:
         uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
         with:
           user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
+          password: ${{ secrets.PYPI_API_TOKEN }}   

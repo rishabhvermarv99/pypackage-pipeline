@@ -1,7 +1,9 @@
 name: Python package installation for macOS
 
 on:
-  workflow_dispatch: {}
+  push:
+    branches:
+    - develop
 
 jobs:
 
