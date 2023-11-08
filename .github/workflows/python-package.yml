@@ -21,9 +21,11 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt
-          pip install wheel             
+          pip install wheel   
+          
+      - name: Install bump2version
+        run: pip install bump2version     
      
-            
       - name: Semantic Versioning
 
         run: |
