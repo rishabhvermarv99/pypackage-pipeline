@@ -123,7 +123,7 @@ jobs:
       #   run: |
       #     bump2version --files setup.py, .bumpversion.cfg, VERSION.txt --commit --tag
 
-      
+
 
       # - name: Bump Version
       #   run: |
@@ -191,15 +191,7 @@ jobs:
       #     bump2version --no-tag --no-commit --new-version $(cat env.txt)
       #     version=$(cat VERSION.txt)
       #     echo "Updated version to $version"
-      #   shell: bash
-
-      # - name: Bump Version
-      #   run: |
-      #     git fetch --tags
-      #     bump2version --no-tag --no-commit ${{ env.txt }}  # Use patch, minor, or major based on your commit message
-      #     version=$(cat VERSION.txt)
-      #     echo "Updated version to $version"
-      #   shell: bash    
+      #   shell: bash  
 
 
 
