@@ -23,8 +23,8 @@ jobs:
           pip install -r requirements.txt
           pip install wheel   
           
-      - name: Install bump2version
-        run: pip install bump2version     
+      # - name: Install bump2version
+      #   run: pip install bump2version     
      
       - name: Semantic Versioning
 
@@ -84,17 +84,17 @@ jobs:
 
           fi 
 
-      - name: Bump Version
-        run: |
-          git config --local user.email "rishabhverma3012.rv@gmail.com"
-          git config --local user.name "rishabhvermarv99"
-          git fetch --tags
-          current_version=$(cat VERSION.txt)
-          bump2version --no-tag --no-commit --new-version $current_version  # Bump to the current version
-          new_version=$(bump2version --dry-run --list patch | grep current_version | cut -d'=' -f2)
-          echo "$new_version" > VERSION.txt
-          echo "Updated version in VERSION.txt to $new_version"
-        shell: bash    
+      # - name: Bump Version
+      #   run: |
+      #     git config --local user.email "rishabhverma3012.rv@gmail.com"
+      #     git config --local user.name "rishabhvermarv99"
+      #     git fetch --tags
+      #     current_version=$(cat VERSION.txt)
+      #     bump2version --no-tag --no-commit --new-version $current_version  # Bump to the current version
+      #     new_version=$(bump2version --dry-run --list patch | grep current_version | cut -d'=' -f2)
+      #     echo "$new_version" > VERSION.txt
+      #     echo "Updated version in VERSION.txt to $new_version"
+      #   shell: bash    
 
       - name: Build Package
         run: python setup.py sdist bdist_wheel
