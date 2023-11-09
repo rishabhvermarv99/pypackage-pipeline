@@ -36,7 +36,7 @@ jobs:
 
               version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
 
-              major_version=$(echo "$version" | cut -d. -f1)
+              major_version=$(echo "$version" | cut -d. -f1)    
 
               minor_version=$(echo "$version" | cut -d. -f2)
 
