@@ -52,19 +52,19 @@ jobs:
 
               new_version="${a}.0.0"      
 
-          else ;
+          else
 
-          version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
+              version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
 
-          major_version=$(echo "$version" | cut -d. -f1)
+              major_version=$(echo "$version" | cut -d. -f1)
 
-          minor_version=$(echo "$version" | cut -d. -f2)
+              minor_version=$(echo "$version" | cut -d. -f2)
 
-          patch_version=$(echo "$version" | cut -d. -f3)
+              patch_version=$(echo "$version" | cut -d. -f3)
 
-          ((patch_version++))
+              ((patch_version++))
 
-          new_version="${major_version}.${minor_version}.${patch_version}"
+              new_version="${major_version}.${minor_version}.${patch_version}"
 
           fi 
 
