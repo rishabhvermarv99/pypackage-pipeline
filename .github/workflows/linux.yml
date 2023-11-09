@@ -22,13 +22,8 @@ jobs:
 
     - name: Install package
       run: pip install sigmoidpythonpackage 
-      
-    # - name: Static Code Analysis with pylint
-    #   run: |
-    #     pip install pylint
-    #     pylint src/
 
-    - name: Security Scanning with Bandit
+    - name: Static Code Analysis with Bandit
       run: |
         pip install bandit
         bandit -r .
