@@ -80,9 +80,7 @@ jobs:
 
               new_version="${major_version}.${minor_version}.${patch_version}"
 
-          fi 
-
-          # cat VERSION.txt    
+          fi   
 
           echo "Version before updation: $new_version"
 
