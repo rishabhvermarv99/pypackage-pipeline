@@ -34,53 +34,53 @@ jobs:
     
           if [[ $commit_message == *"PATCH"* ]]; then
 
-              version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
+            version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
 
-              major_version=$(echo "$version" | cut -d. -f1)    
+            major_version=$(echo "$version" | cut -d. -f1)    
 
-              minor_version=$(echo "$version" | cut -d. -f2)
-   
-              patch_version=$(echo "$version" | cut -d. -f3)
+            minor_version=$(echo "$version" | cut -d. -f2)
+ 
+            patch_version=$(echo "$version" | cut -d. -f3)
 
-              ((patch_version++))       
+            ((patch_version++))       
 
-              new_version="${major_version}.${minor_version}.${patch_version}"
+            new_version="${major_version}.${minor_version}.${patch_version}"
 
           elif [[ $commit_message == *"MINOR"* ]]; then
 
-              version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
+            version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
 
-              major_version=$(echo "$version" | cut -d. -f1)
+            major_version=$(echo "$version" | cut -d. -f1)
 
-              minor_version=$(echo "$version" | cut -d. -f2)
+            minor_version=$(echo "$version" | cut -d. -f2)
 
-              ((minor_version++))
+            ((minor_version++))
 
-              new_version="${major_version}.${minor_version}.0"   
+            new_version="${major_version}.${minor_version}.0"   
 
           elif [[ $commit_message == *"MAJOR"* ]]; then
 
-              version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
+            version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
 
-              major_version=$(echo "$version" | cut -d. -f1)
+            major_version=$(echo "$version" | cut -d. -f1)
 
-              a=$(expr $major_version + 1)
+            a=$(expr $major_version + 1)
 
-              new_version="${a}.0.0"      
+            new_version="${a}.0.0"      
 
           else
 
-              version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
+            version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
 
-              major_version=$(echo "$version" | cut -d. -f1)
+            major_version=$(echo "$version" | cut -d. -f1)
 
-              minor_version=$(echo "$version" | cut -d. -f2)
+            minor_version=$(echo "$version" | cut -d. -f2)
 
-              patch_version=$(echo "$version" | cut -d. -f3)
+            patch_version=$(echo "$version" | cut -d. -f3)
 
-              ((patch_version++))
+            ((patch_version++))
 
-              new_version="${major_version}.${minor_version}.${patch_version}"
+            new_version="${major_version}.${minor_version}.${patch_version}"
 
           fi   
 
