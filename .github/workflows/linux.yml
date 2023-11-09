@@ -51,10 +51,6 @@ jobs:
     - name: push docker image
       run: docker push '${{secrets.DOCKER_USERNAME}}'/pypackage-pipeline:'${{github.sha}}'
 
-    - name: Save image tag for potential rollback
-      id: save_tag
-      run: echo "::set-output name=tag::${{ github.sha }}"  
-
     - name: Install trivy
       run: |
         wget https://github.com/aquasecurity/trivy/releases/download/v0.19.1/trivy_0.19.1_Linux-64bit.deb -O trivy.deb
