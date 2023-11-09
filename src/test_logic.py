@@ -3,7 +3,7 @@ from src.logic import load_file_to_dataframe
 
 def test_load_csv():
     csv_content = "Name,Age\nJohn,25\nJane,30\n"
-    csv_path = "tests/test.csv"
+    csv_path = "src/test.csv"
 
     # Write the test CSV file
     with open(csv_path, "w") as csv_file:
@@ -18,7 +18,7 @@ def test_load_excel():
     excel_content = {"Sheet1": {"Name": ["Alice", "Bob"], "Age": [22, 28]}}
 
     # Write the test Excel file
-    excel_path = "tests/test.xlsx"
+    excel_path = "src/test.xlsx"
     with pd.ExcelWriter(excel_path, engine="xlsxwriter") as writer:
         for sheet_name, content in excel_content.items():
             pd.DataFrame(content).to_excel(writer, sheet_name=sheet_name, index=False)
