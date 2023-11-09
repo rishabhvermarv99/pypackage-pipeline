@@ -2,6 +2,9 @@ import pandas as pd
 from src.logic import load_file_to_dataframe
 
 def test_load_csv():
+    """
+    Test loading a CSV file and check the DataFrame.
+    """
     csv_content = "Name,Age\nJohn,25\nJane,30\n"
     csv_path = "src/test.csv"
 
@@ -15,6 +18,9 @@ def test_load_csv():
     pd.testing.assert_frame_equal(df, expected_df)
 
 def test_load_excel():
+    """
+    Test loading an Excel file and check the DataFrame.
+    """
     excel_content = {"Sheet1": {"Name": ["Alice", "Bob"], "Age": [22, 28]}}
 
     # Write the test Excel file
