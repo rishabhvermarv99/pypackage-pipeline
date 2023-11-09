@@ -1,21 +1,14 @@
 # src/test_logic.py
 
-"""
-Module docstring: Brief description of the module.
-"""
-
 import pandas as pd
 from src.logic import load_file_to_dataframe
 
 def test_load_csv():
-    """
-    Test docstring: Description of the test_load_csv function.
-    """
     csv_content = "Name,Age\nJohn,25\nJane,30\n"
     csv_path = "src/test.csv"
 
     # Write the test CSV file
-    with open(csv_path, "w") as csv_file:
+    with open(csv_path, "w", encoding="utf-8") as csv_file:
         csv_file.write(csv_content)
 
     # Load CSV and check the DataFrame
@@ -24,9 +17,6 @@ def test_load_csv():
     pd.testing.assert_frame_equal(df, expected_df)
 
 def test_load_excel():
-    """
-    Test docstring: Description of the test_load_excel function.
-    """
     excel_content = {"Sheet1": {"Name": ["Alice", "Bob"], "Age": [22, 28]}}
 
     # Write the test Excel file
