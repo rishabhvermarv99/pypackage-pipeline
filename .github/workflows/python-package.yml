@@ -82,7 +82,7 @@ jobs:
 
           fi 
 
-          # cat VERSION.txt
+          # cat VERSION.txt    
 
           echo "Version before updation: $new_version"
 
