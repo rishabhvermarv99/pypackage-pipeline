@@ -40,7 +40,7 @@ jobs:
 
               patch_version=$(echo "$version" | cut -d. -f3)
 
-              ((patch_version++))
+              ((patch_version++))   
 
               new_version="${major_version}.${minor_version}.${patch_version}"     
 
