@@ -1,15 +1,14 @@
 name: Python package installation for windows
 
 on:
-  workflow_dispatch: {}
+  push:
+    branches:
+    - develop
 
 jobs:
-
   run:
-
     runs-on: windows-latest
 
     steps:
-
     - name: Install package
       run: pip install sigmoidpythonpackage    

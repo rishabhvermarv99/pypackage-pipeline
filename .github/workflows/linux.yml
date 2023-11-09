@@ -1,18 +1,13 @@
-name: CI/CD for Python Package
-
-# on:
-#   push:
-#     branches:
-#       - main
-#       - develop
+name: CI for Python Package and deployment to Docker Hub
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - develop
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -27,21 +22,28 @@ jobs:
       run: pip install --upgrade setuptools    
 
     - name: Install package
-      run: pip install sigmoidpythonpackage    
+      run: pip install sigmoidpythonpackage 
+      
+    - name: Static Code Analysis with pylint
+      run: |
+        pip install pylint
+        pylint .
 
-    - name: Install bump2version and patch
-      run: pip install bump2version
-        
-
-    - name: Static Code Analysis
+    - name: Security Scanning with Bandit
       run: |
         pip install bandit
         bandit -r .
 
-    - name: Dependency Scanning
+    - name: Dependency Scanning with Safety
       run: |
         pip install safety
         safety check
+
+    - name: GitLeaks Scan
+      run: |
+        wget -O gitleaks https://github.com/zricethezav/gitleaks/releases/download/v7.0.0/gitleaks-linux-amd64
+        chmod +x gitleaks
+        ./gitleaks    
           
     - name: docker build
       run: docker build --build-arg GIT_SHA=${{ github.sha }} -t pypackage-pipeline:${{ github.sha }} -f ./linux/Dockerfile .
@@ -58,9 +60,7 @@ jobs:
     - name: Install trivy
       run: |
         wget https://github.com/aquasecurity/trivy/releases/download/v0.19.1/trivy_0.19.1_Linux-64bit.deb -O trivy.deb
-        sudo dpkg -i trivy.deb
-      # if: runner.os == 'Linux'
-  
+        sudo dpkg -i trivy.deb  
 
     - name: Container Image Scanning
       run: trivy pypackage-pipeline:${{ github.sha }}

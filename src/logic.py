@@ -1,5 +1,9 @@
 import pandas as pd
 
-def load_csv_to_dataframe(csv_file):
-    df = pd.read_csv(csv_file)
+def load_file_to_dataframe(file_path, file_format):
+    if file_format == "csv":
+        df = pd.read_csv(file_path)
+    elif file_format == "excel":
+        df = pd.read_excel(file_path)
+
     return df
