@@ -1,4 +1,4 @@
-from my_package.logic import load_file_to_dataframe
+from src.logic import load_file_to_dataframe
 
 if __name__ == "__main__":
     # Load a CSV file
