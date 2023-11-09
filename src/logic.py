@@ -1,5 +1,3 @@
-# src/logic.py
-
 """
 Module docstring: Brief description of the module.
 """
