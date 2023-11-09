@@ -21,7 +21,13 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt
-          pip install wheel      
+          pip install wheel   
+          
+      - name: Install pytest
+        run: pip install pytest
+
+      - name: Run Tests with pytest
+        run: pytest tests/    
      
       - name: Semantic Versioning
         run: |
