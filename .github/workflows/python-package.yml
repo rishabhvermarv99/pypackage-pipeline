@@ -24,7 +24,7 @@ jobs:
           pip install wheel    
      
       - name: Semantic Versioning
-        run: |
+        run: |    
 
           commit_message="${{ github.event.head_commit.message }}"
 
