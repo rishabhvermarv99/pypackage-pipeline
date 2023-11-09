@@ -62,13 +62,3 @@ jobs:
 
     - name: Container Image Scanning
       run: trivy pypackage-pipeline:${{ github.sha }}
-
-  rollback:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - name: Revert to previous successful image
-      run: |
-        docker pull '${{secrets.DOCKER_USERNAME}}'/pypackage-pipeline:'${{needs.build.outputs.tag}}'
-        docker tag '${{secrets.DOCKER_USERNAME}}'/pypackage-pipeline:'${{needs.build.outputs.tag}}' pypackage-pipeline:latest
-        docker push pypackage-pipeline:latest
