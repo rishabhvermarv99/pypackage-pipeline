@@ -39,7 +39,7 @@ jobs:
               major_version=$(echo "$version" | cut -d. -f1)    
 
               minor_version=$(echo "$version" | cut -d. -f2)
-
+   
               patch_version=$(echo "$version" | cut -d. -f3)
 
               ((patch_version++))       
