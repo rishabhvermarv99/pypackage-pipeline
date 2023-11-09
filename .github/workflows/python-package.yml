@@ -30,6 +30,8 @@ jobs:
 
           commit_message_lowercase=$(echo "$commit_message" | tr 'A-Z' 'a-z') 
 
+          echo "Version before updation: $new_version"
+
           if [[ $commit_message == *"PATCH"* ]]; then
 
               version=$(curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version')
@@ -81,8 +83,6 @@ jobs:
               new_version="${major_version}.${minor_version}.${patch_version}"
 
           fi   
-
-          echo "Version before updation: $new_version"
 
           echo "$new_version" > VERSION.txt
 
