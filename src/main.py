@@ -1,3 +1,9 @@
+# src/main.py
+
+"""
+Module docstring: Brief description of the module.
+"""
+
 from src.logic import load_file_to_dataframe
 
 if __name__ == "__main__":

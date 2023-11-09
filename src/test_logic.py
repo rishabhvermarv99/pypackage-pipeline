@@ -1,9 +1,15 @@
+# src/test_logic.py
+
+"""
+Module docstring: Brief description of the module.
+"""
+
 import pandas as pd
 from src.logic import load_file_to_dataframe
 
 def test_load_csv():
     """
-    Test loading a CSV file and check the DataFrame.
+    Test docstring: Description of the test_load_csv function.
     """
     csv_content = "Name,Age\nJohn,25\nJane,30\n"
     csv_path = "src/test.csv"
@@ -19,7 +25,7 @@ def test_load_csv():
 
 def test_load_excel():
     """
-    Test loading an Excel file and check the DataFrame.
+    Test docstring: Description of the test_load_excel function.
     """
     excel_content = {"Sheet1": {"Name": ["Alice", "Bob"], "Age": [22, 28]}}
 
