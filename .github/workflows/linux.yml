@@ -27,7 +27,7 @@ jobs:
     - name: Static Code Analysis with pylint
       run: |
         pip install pylint
-        pylint .
+        pylint src/
 
     - name: Security Scanning with Bandit
       run: |
