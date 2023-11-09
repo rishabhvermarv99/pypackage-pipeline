@@ -21,7 +21,7 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt
-          pip install wheel      
+          pip install wheel    
      
       - name: Semantic Versioning
         run: |
@@ -74,8 +74,14 @@ jobs:
 
           cat VERSION.txt
 
+      - name: Install pytest
+        run: pip install pytest
+    
+      - name: Run Tests with pytest
+        run: pytest src/    
+
       - name: Build Package
-        run: python setup.py sdist bdist_wheel
+        run: python setup.py sdist bdist_wheel  
 
       - name: Publish package
         uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
