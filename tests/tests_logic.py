@@ -1,5 +1,5 @@
 import pandas as pd
-from sigmoidpythonpackage.logic import load_file_to_dataframe
+from src.logic import load_file_to_dataframe
 
 def test_load_csv():
     csv_content = "Name,Age\nJohn,25\nJane,30\n"
