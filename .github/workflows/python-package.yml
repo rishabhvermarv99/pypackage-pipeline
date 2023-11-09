@@ -27,7 +27,7 @@ jobs:
         run: pip install pytest
 
       - name: Run Tests with pytest
-        run: pytest tests/    
+        run: pytest tests/ .   
      
       - name: Semantic Versioning
         run: |
