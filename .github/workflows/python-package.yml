@@ -74,6 +74,12 @@ jobs:
 
           cat VERSION.txt
 
+      - name: Install pytest
+        run: pip install pytest
+    
+      - name: Run Tests with pytest
+        run: pytest src/    
+
       - name: Build Package
         run: python setup.py sdist bdist_wheel  
 
@@ -82,9 +88,3 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}   
-
-      - name: Install pytest
-        run: pip install pytest
-    
-      - name: Run Tests with pytest
-        run: pytest src/
