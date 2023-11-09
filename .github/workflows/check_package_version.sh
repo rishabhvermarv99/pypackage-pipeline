@@ -9,4 +9,4 @@ echo "$package_info"
 # Extract and display the package version
 package_version=$(echo "$package_info")
 # echo "Package Version: $package_version"
-curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version'
+curl -s "https://pypi.org/pypi/sigmoidpythonpackage/json" | jq -r '.info.version'  
