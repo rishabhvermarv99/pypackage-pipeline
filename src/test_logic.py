@@ -1,4 +1,6 @@
-# src/test_logic.py
+"""
+Test module for logic functions.
+"""
 
 import pandas as pd
 from src.logic import load_file_to_dataframe
